@@ -1,0 +1,62 @@
+<div class="my-courses-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 hidden-xs hidden-sm">
+                    <span class="a1 pos-r my-courses-heading">My Courses</span>
+                </div>
+                <div class="col-md-6 p0 tar tac-force-md">
+                    <ul class="nav nav-tabs pos-r">
+                        <li ng-class="{active: viewModel.currentTab == 'learning'}">
+                            <%= link_to "Learning",purchases_path %>
+                        </li>
+                        
+                        <li ng-class="{active: viewModel.currentTab == 'teaching'}", class="active">
+                            <%= link_to "Teaching", teaching_path %>
+                        </li>                  
+                        
+                    </ul>
+                </div>
+                <div align="right">
+                  <%= form_tag search_courses_path, method: :get do |f| %>
+                        <%= text_field_tag :search, nil, placeholder: 'search your course' %>
+                        <%= submit_tag 'Go' %>
+                    <% end %>  
+               </div>
+            </div>
+        </div>
+</div>
+<br>
+<div class="container">
+   <%= link_to 'Create Course', new_course_path, class: "btn btn-primary btn-sm active" %>
+   <br>
+   <br>
+  <div class="row">
+    <% @courses.each do |course| %>
+      <div class="col-xs-6 col-md-3">
+        <div class="thumbnail">
+              <%= link_to image_tag(course.image.url, size: "400x200"), course %>
+              
+              <div class="caption">
+                <h4 style="text-transform: capitalize;"><%= course.name %></h4>
+                <p>Lecturer <%= course.lecture %></p>
+                <p>Price <%= raw number_to_currency(course.price) %></p>
+                <div class="star-rating" data-score = <%= @avg_rating %> ></div>
+                   <p> <%= "#{@reviews.length} reviews" %> </p>
+              </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+</div>
+
+<script>
+  $('.star-rating').raty({
+    path: '../assets/stars',
+    readOnly: true,
+    score: function() {
+    return $(this).attr('data-score');
+  }
+  });
+</script>
+

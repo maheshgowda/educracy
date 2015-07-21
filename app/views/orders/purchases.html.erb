@@ -1,0 +1,48 @@
+<div class="my-courses-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 hidden-xs hidden-sm">
+                    <span class="a1 pos-r my-courses-heading">My Courses</span>
+                </div>
+                    <ul class="nav nav-tabs pos-r">
+                        <li ng-class="{active: viewModel.currentTab == 'learning'}" class="active">
+                            <%= link_to "Learning",purchases_path %>
+                        </li>
+                        <li ng-class="{active: viewModel.currentTab == 'teaching'}">
+                            <%= link_to "Teaching", teaching_path %>
+                        </li>
+                        <div align="right">
+                        <%= form_tag search_courses_path, method: :get do |f| %>
+                            <%= text_field_tag :search, nil, placeholder: 'search your course' %>
+                            <%= submit_tag 'Go' %>
+                        <% end %>  
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</div>
+<br>
+<div class="container">
+    <%= link_to 'All Courses', courses_path, class: "btn btn-primary btn-sm active" %>
+   <br>
+   <br>
+  <div class="row">
+    <% @orders.each do |order| %>
+      <div class="col-xs-6 col-md-3">
+        
+        <div class="thumbnail">
+              <%= link_to image_tag(order.course.image.url()) %>
+              <div class="caption">
+                <h4 style="text-transform: capitalize;"><%= order.course.name %></h4>
+                <p>Lecturer <%= order.course.lecture %></p>
+                <p>Price <%= raw number_to_currency(order.course.price) %></p>
+              </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+</div>
+
+

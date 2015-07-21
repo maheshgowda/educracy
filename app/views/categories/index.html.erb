@@ -1,0 +1,48 @@
+<% @categories.each do |category| %>
+ <%= link_to category.name %>
+<% end %>
+ <table>
+    <tr>
+      <th class="table-header"><%= link_to 'Development', category_path(@development) %></th>
+    </tr>
+    <tr>
+        <td>
+          <% @development.subcategories.each do |subcategory| %>
+            <ul>
+              <li> <%= link_to subcategory.name, category_subcategory_path(@development, subcategory) %> </li>
+            </ul>
+          <% end %>
+        </td>
+    </tr>
+ </table>
+ <table>
+    <tr>
+      <th class="table-header"><%= link_to 'Business', category_path(@business) %></th>
+    </tr>
+    <tr>
+        <td>
+          <% @business.subcategories.each do |subcategory| %>
+            <ul>
+              <li> <%= link_to subcategory.name, category_subcategory_path(@business, subcategory) %> </li>
+            </ul>
+          <% end %>
+        </td>
+    </tr>
+ </table>
+ 
+ <table>
+    <tr>
+      <th class="table-header"><%= link_to 'Office Productivity', category_path(@office_productivity) %></th>
+    </tr>
+    <tr>
+        <td>
+          <% @office_productivity.subcategories.each do |subcategory| %>
+            <ul>
+              <li> <%= link_to subcategory.name, category_subcategory_path(@office_productivity, subcategory) %> </li>
+            </ul>
+          <% end %>
+        </td>
+    </tr>
+ </table>
+ 
+ 

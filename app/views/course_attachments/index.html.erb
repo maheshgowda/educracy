@@ -1,0 +1,25 @@
+<h1>Listing course_attachments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Video</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @course_attachments.each do |course_attachment| %>
+      <tr>
+        <td><%= course_attachment.video %></td>
+        <td><%= link_to 'Show', course_attachment %></td>
+        <td><%= link_to 'Edit', edit_course_attachment_path(course_attachment) %></td>
+        <td><%= link_to 'Destroy', course_attachment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Course attachment', new_course_attachment_path %>

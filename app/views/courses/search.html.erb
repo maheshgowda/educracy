@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <% @courses.each do |course| %>
+      <div class="col-xs-6 col-md-3">
+        
+        <div class="thumbnail">
+          
+              <%= image_tag(course.image.url, size: "400x200") %>
+              
+              <div class="caption">
+                
+                <h4 style="text-transform: capitalize;"><%= course.name %></h4>
+                <p>Lecturer <%= course.lecture %></p>
+                <p>Price <%= raw number_to_currency(course.price) %></p>
+                
+                <div class="center">
+                  <%= link_to 'Show', course,class: "label label-primary" %>
+                </div>
+              </div>
+              
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <br>
+    <%= link_to 'Create Course', new_course_path, class: "btn btn-primary btn-sm active" %>
+</div>

@@ -1,0 +1,78 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+<div class = "row">
+  <% @course_attachments.each do |c| %>
+  <div class = "col-md-8">
+    <p><%= video_tag c.video_url, size: "750x500", :controls =>true %></p>
+    <%= link_to "Edit Attachment", edit_course_attachment_path(c) %>
+  </div>
+  <% end %>
+
+  <div class = "col-md-4">
+    <p>
+      <strong>Name:</strong>
+      <%= @course.name %>
+    </p>
+    <p>
+      <strong>Description:</strong>
+      <%= @course.description %>
+    </p>
+    <div class="center">
+      <p><%= link_to "Get to Start", new_course_order_path(@course), class: "btn btn-primary btn-md active"%> </p>
+    </div>
+    <div class="star-rating" data-score = <%= @avg_rating %> ></div>
+    <p> <%= "#{@reviews.length} reviews" %> </p>
+    
+    <p>
+      <strong>Price:</strong>
+      <%= raw number_to_currency(@course.price) %>
+    </p>
+    <p>
+    <%= link_to "write a review", new_course_review_path(@course), class: "btn btn-primary btn-sm active", data: { no_turbolink: true } %>
+    </p>
+    <% if @reviews.blank? %>
+      <h3>No comment yet</h3>
+    <% else %>
+    <table class = "table">
+      <tbody>
+        <thead>
+          <tr>
+            <th class="col-md-9"></th>
+            <th class="col-md-9"></th>
+          </tr>
+        </thead>
+        <% @reviews.each do |review| %>
+        <tr>
+          <td>
+            <h5>
+              <%= "#{review.user.name.capitalize}" %>
+            </h5>
+            <p><%= review.created_at.strftime("%-m/%-d/%y") %></p>
+          </td>
+          <td>
+            <div class="star-rating" data-score = <%= review.rating %> ></div>
+            <p><%= h(review.comment).gsub(/\n/, '<br>').html_safe %></p>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+<% end %>
+<%= link_to 'Back', courses_path, class: "btn btn-primary btn-sm active" %> 
+<% if current_user == @course.user %>
+  <%= link_to 'Edit', edit_course_path(@course), class: "btn btn-primary btn-sm active" %> 
+  <%= link_to 'Destroy', @course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm active" %>
+<% end %>
+</div>
+
+<script>
+  $('.star-rating').raty({
+    path: '../assets/stars',
+    readOnly: true,
+    score: function() {
+    return $(this).attr('data-score');
+  }
+  });
+</script>
